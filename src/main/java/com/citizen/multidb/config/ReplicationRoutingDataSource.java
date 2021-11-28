@@ -1,5 +1,6 @@
 package com.citizen.multidb.config;
 
+import com.citizen.multidb.constants.DbDestination;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
@@ -18,7 +19,7 @@ public class ReplicationRoutingDataSource extends AbstractRoutingDataSource {
             log.debug("current getResourceMap : {}", TransactionSynchronizationManager.getResourceMap());
         }
 
-        return TransactionSynchronizationManager.isCurrentTransactionReadOnly() ? "slave"
-            : "master";
+        return TransactionSynchronizationManager.isCurrentTransactionReadOnly() ? DbDestination.MULTI_DB_SLAVE
+            : DbDestination.MULTI_DB_MASTER;
     }
 }
